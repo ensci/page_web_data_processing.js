@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+
+	<head>
+
+<!-- Le titre de ma page-->
+<title>Bonjour</title>
+
+<!-- je charge une typo web sur le site googleapis, cela me permet d'avoir plus de choix qu'en utilisant les typos "systèmes" (arial, Times, etc) -->
+<link href='http://fonts.googleapis.com/css?family=Lusitana' rel='stylesheet' type='text/css'>
+
+<!-- je charge la librairie Jquery sur le site googleapis, elle va me servir à récupérer les données Json -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+
+<!-- ici commence la feuille de style css-->
+<style type="text/css">
+
+
+
+/* Cette partie correspond au "body" de ma page. j'applique une couleur de fond, une couleur de texte et une police (lusitana, une font web que j'ai chargée précedemment) */
+body{
+background-color: #fff;
+color: #FFF;
+font-family: Lusitana, serif;
+}
+
+/* Cette partie correspond au bloc "titre" dans ma page. La taille du texte est indiqué en em (unité de meusure typographique afin que la taille du texte s'adapte à la taille de mon écran).
+L'effet d'ombre sur le texte fait partie des nouvelles propriétés CSS */
+#titre{
+background-color: #fff;
+font-family: Lusitana, serif;
+
+font-size: 20em;
+text-align: center;
+text-shadow:0px 0px 100px  #000;
+color: #fff;
+}
+
+
+/* Cette partie correspond au bloc "texte" dans ma page. J'utilise des % pour aligner mon bloc afin qu'il s'adapte plus souplement aux différentes résolutions d'écran */
+#texte{
+background-color: #fff;
+font-family: Lusitana, serif;
+box-shadow: 0px 0px 100px  #999;
+color: #888;
+
+
+font-size: 1.5em;
+padding: 5%;
+text-align: justify;
+margin-left:2%;
+margin-right:2%;
+min-height:600px;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+
+}
+
+/* Cette partie explique au contenu du bloc "texte" comment il doit se comporter lorsque je passe ma souris dessus (hover) */
+#texte a:hover{
+
+	color:#fff;
+}
+
+/* Cette partie explique au contenu du bloc "texte" comment il doit se comporter lorsque je passe ma souris dessus (hover) */
+#texte a:visited{
+
+	color:#555;
+}
+
+/* Cette partie correspond au contenu du bloc "footer"  */
+#footer{
+background-color: #222;
+box-shadow: 0px 0px 80px  #000;
+
+margin-left:2%;
+margin-right:2%;
+display:block;
+padding:50px;
+
+border-bottom-left-radius: 10px;
+border-bottom-right-radius: 10px;
+
+}
+
+
+</style>
+<!-- ici se termine la feuille de style css-->
+
+
+	</head>
+
+
+<!-- début du body, là ou je place le contenu (texte, images, etc de ma page) -->
+<body>
+
+<!-- ma page va être composée de blocs (div) qui ve me permettre de faire ma mise en page
+
+<!-- je créé un bloc (div) et je lui donne le nom (id) de titre -->
+<div id="titre">
+
+Hello!
+</div>
+
+<div id="texte">
+
+
+</div>
+
+<div id="footer">
+
+</div>
+
+
+<!-- j'explique au navigateur que ce qui va suivre va être du javascript. Il s'agit de la partie où je vais récupérer mes données-->
+<script type="text/javascript">
+
+
+// du jquery  ! $ signifie que j'utilise une fonction de jquery, qui est une librairie basé sur du javascript. Ici, je veux que ma fonction se lance uniquement quand la page est fini d'être chargée (document ready)
+$(document).ready(function(){
+
+// je veux récupérer mes données à l'url indiquée, au format json, les données brutes seront récupérées dans l'objet data
+$.getJSON( "http://florentdeloison.fr/api/orange_0.json", function( data ) {
+
+// console.log me permet d'afficher dans la console le contenu brut de data (mes données)
+console.log(data);
+
+// je créé une boucle pour aller chercher dans l'objet data 
+for (var i=0; i<data.length; i++){
+
+// je vais chercher toutes les occurences de la propriété "correspondantNumber" au sein de data, si celle-ci n'est pas nulle.
+if (data[i].correspondantNumber!=null){
+
+// j'imprime dans la console (= print) toutes les occurences de correspondantNumber
+console.log(data[i].correspondantNumber);
+
+
+// j'utilise la fonction append de jquery pour rajouter les données sous forme de texte dans le bloc "texte" et ainsi les afficher sur ma page web
+$('#texte').append("<p>"+data[i].correspondantNumber+"</p>")
+}
+
+/*
+	if (data[i].subscriberNumber!=null){
+console.log(data[i].subscriberNumber);
+}
+*/
+
+}
+
+  });
+});
+
+
+
+// fin de ma partie en javascript
+</script>
+
+
+
+
+
+</body>
+
+	</html>	

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+	<head>
+		
+		<title>Processing + JSON + HTML</title>
+		<link rel="icon"  type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAQAAVzABAEAjBQAaDwYAWjUGAGE6CQBrQQ0ATS8PAFhAJwBUQC8AbFI6AHVXPACBZk4A4NrWAPb19QAAAAAAAMmZmZmZmgAJIwAAAAAAcMIjPjA+PjAKpxIuMDMzMAm0Ii4zMzMACaIiLt3dMAAJtyIuIzPQAAm0Un5yM+IzKLRkfncy4iIotRF+dyLkIiq0QX53F+EiGrQUTkd34iIatEVu7u5iIVrBVVRBRFRVbAtGZGZla2uwAMu7u7u8vADAAwAAgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIABAADAAwAA" />
+		<meta name="Generator" content="Processing" />
+
+
+<!-- je charge une typo web sur le site googleapis, cela me permet d'avoir plus de choix qu'en utilisant les typos "systèmes" (arial, Times, etc) -->
+<link href='http://fonts.googleapis.com/css?family=Lusitana' rel='stylesheet' type='text/css'>
+
+<!-- je charge la librairie Jquery sur le site googleapis, elle va me servir à récupérer les données Json -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+
+<!-- ici commence la feuille de style css-->
+<style type="text/css">
+	/* Cette partie correspond au "body" de ma page. j'applique une couleur de fond, une couleur de texte et une police (lusitana, une font web que j'ai chargée précedemment) */
+body{
+background-color: #fff;
+color: #FFF;
+font-family: Lusitana, serif;
+width:100%;
+text-align: center;
+}
+
+/* Cette partie correspond au bloc "titre" dans ma page. La taille du texte est indiqué en em (unité de meusure typographique afin que la taille du texte s'adapte à la taille de mon écran).
+L'effet d'ombre sur le texte fait partie des nouvelles propriétés CSS */
+#titre{
+background-color: #fff;
+font-family: Lusitana, serif;
+
+font-size: 20em;
+text-align: center;
+text-shadow:0px 0px 50px  #000;
+color: #fff;
+}
+
+
+/* Cette partie correspond au bloc "texte" dans ma page. J'utilise des % pour aligner mon bloc afin qu'il s'adapte plus souplement aux différentes résolutions d'écran */
+#texte{
+background-color: #fff;
+font-family: Lusitana, serif;
+box-shadow: 0px 0px 50px  #999;
+color: #888;
+
+
+font-size: 1.5em;
+padding: 5%;
+text-align: center;
+margin-left:auto;
+margin-right:auto;
+width:80%;
+min-height:600px;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+
+}
+
+/* Cette partie explique au contenu du bloc "texte" comment il doit se comporter lorsque je passe ma souris dessus (hover) */
+#texte a:hover{
+
+	color:#fff;
+}
+
+/* Cette partie explique au contenu du bloc "texte" comment il doit se comporter lorsque je passe ma souris dessus (hover) */
+#texte a:visited{
+
+	color:#555;
+}
+
+/*
+.bouton {
+background-color: #fff;
+font-family: Lusitana, serif;
+
+font-size: 1em;
+text-align: center;
+text-shadow:-1px -1px 4px  #777;
+
+color: #fff;
+box-shadow: 0px 0px 10px  #999;
+border-radius: 5px;
+border: 0px;
+width:200px;
+height:60px;
+}
+*/
+
+ #bouton{
+background-color: #fff;
+font-family: Lusitana, serif;
+
+font-size: 1em;
+text-align: center;
+text-shadow:-1px -1px 4px  #777;
+
+color: #fff;
+box-shadow: 0px 0px 10px  #999;
+border-radius: 5px;
+
+border: 0px;
+
+margin-right:auto; 
+margin-left:auto;
+
+width:800px;
+height:60px;
+
+}
+
+ #bouton:active{
+background-color: #999;
+text-shadow: -1px -1px 4px  #000 ;
+color: #999;
+box-shadow: 0px 0px 10px  #000 inset;
+
+
+}
+
+canvas{
+box-shadow: 0px 0px 10px  #000 inset;
+background-color: #fff;
+border-radius: 5px;
+}
+
+/* Cette partie correspond au contenu du bloc "footer"  */
+#footer{
+background-color: #222;
+box-shadow: 0px 0px 80px  #000;
+
+margin-left:auto;
+margin-right:auto;
+display:block;
+padding:5%;
+width:80%;
+border-bottom-left-radius: 10px;
+border-bottom-right-radius: 10px;
+
+}
+
+
+</style>
+<!-- ici se termine la feuille de style css-->
+
+</head>
+
+<!-- j'explique au navigateur que ce qui va suivre va être du javascript. Il s'agit de la partie où je vais récupérer mes données-->
+
+
+
+<script src="processing.js" type="text/javascript"></script>
+<script type="text/javascript">
+// convenience function to get the id attribute of generated sketch html element
+function getProcessingSketchId () { return 'jsonexemple'; }
+</script>
+
+
+<body>
+
+<!-- ma page va être composée de blocs (div) qui ve me permettre de faire ma mise en page
+
+<!-- je créé un bloc (div) et je lui donne le nom (id) de titre -->
+<div id="titre">
+
+Hello!
+</div>
+
+<div id="texte">
+	<p></p>
+<input id="bouton" type="button" value="Clique Moi">
+	<p></p>
+<canvas id="jsonexemple" data-processing-sources="json_exemple.pde" 
+		width="800" height="600">
+</canvas>
+
+</div>
+
+
+<div id="footer">
+
+</div>
+
+<script type="text/javascript">
+	var items=[];
+	var boutonActif=false;
+
+// du jquery  ! $ signifie que j'utilise une fonction de jquery, qui est une librairie basé sur du javascript. Ici, je veux que ma fonction se lance uniquement quand la page est fini d'être chargée (document ready)
+
+
+$("#bouton").click(function(){
+
+
+
+// je veux récupérer mes données à l'url indiquée, au format json, les données brutes seront récupérées dans l'objet data
+$.getJSON( "orange_0.json", function( data ) {
+
+
+// je créé une boucle pour aller chercher dans l'objet data 
+for (var i=0; i<data.length; i++){
+
+// je vais chercher toutes les occurences de la propriété "correspondantNumber" au sein de data, si celle-ci n'est pas nulle.
+if (data[i].correspondantNumber!=null){
+
+// j'imprime dans la console (= print) toutes les occurences de correspondantNumber
+console.log(data[i].correspondantNumber);
+
+items[i]=data[i].correspondantNumber;
+
+}
+boutonActif=true;
+/*
+	if (data[i].subscriberNumber!=null){
+console.log(data[i].subscriberNumber);
+}
+*/
+
+}
+
+  });
+
+});
+
+
+
+// fin de ma partie en javascript
+</script>
+
+
+
+
+	</body>
+
+
+
+</html>
